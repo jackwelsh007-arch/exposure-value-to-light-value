@@ -74,5 +74,6 @@ To re-establish an optimal balance, the photographer or the automated camera sys
 * Increasing the aperture f-number by 2 stops (av' = $av + 2$).
 * Reducing the exposure duration by 2 stops ($tv' = tv - 2$).
 * Reducing the film speed sensitivity by 2 stops ($sv' = sv - 2$).
+* Reducing the shutter speed and film speed by 1 stops ($tv' = sv - 1$ and $sv' = sv - 1$).
 
 Any combination of manual adjustments that yields a net reduction of 2 f-stops across the system successfully restores mathematically optimal exposure conditions for the photograph.
