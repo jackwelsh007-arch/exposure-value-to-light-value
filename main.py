@@ -28,7 +28,13 @@ def main():
     args = parser.parse_args()
     
     av, tv, sv, lv_cam, lv_ext, delta_lv = calculate_apex(args.aperture, args.time, args.iso, args.luminance)
-    print(f"Delta LV: {delta_lv:+6.2f}")
+    print("Aperture Value (av):", av)
+    print("Time Value (tv):", tv)
+    print("Speed Value (sv):", sv)
+    print("Camera LV:", lv_cam)
+    print("External LV:", lv_ext)
+    print("Exposure Meter:")
+    print(draw_light_meter(delta_lv))
 
 if __name__ == "__main__":
     main()
