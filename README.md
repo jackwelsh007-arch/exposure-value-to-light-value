@@ -1,65 +1,20 @@
-# exposure-value-to-light-value
+# Demystifying the APEX System: From Historical "Exposure Value" to Modern Light Value
 
-A utility explaining the transition from historical Exposure Value ($EV$) to modern Light Value ($LV$) using the APEX system. For detailed formulas, background on historical legacies, and setup instructions, please refer to the repository documentation.
+This repository hosts a comprehensive article on the mathematical evolution of exposure settings in photography, exposing the historical legacy of the traditional Exposure Value ($EV$) and showcasing why modern digital sensors rely on Light Values ($LV$).
 
+## 📖 Read the Full Article
+The complete in-depth analysis, including all mathematical proofs, practical photographic implications, and the breakdown of linear f-stop components ($av, tv, sv$), is fully hosted in the project wiki:
 
-## 🚀 Key Features
-
-* **Historical EV vs. Modern LV:** Demonstrates how $LV$ normalizes exposure based on sensor sensitivity.
-* **Additive APEX Calculation:** Splits exposure variables into additive f-stop components ($av$, $tv$, $sv$).
-* **Exposure Balance Indicator:** Recreates the digital "Exposure Compensation Scale" ($\Delta LV$).
-* **Reciprocity Correction:** Calculates alternative exposure combinations automatically.
+👉 **[Click here to read the article in the GitHub Wiki](https://github.com)**
 
 ---
 
-## 📐 The Mathematics
-
-### Variable Definitions
-* **$N$**: Aperture (f-number)
-* **$t$**: Shutter speed / exposure time (in seconds)
-* **$S$**: Sensor sensitivity (ISO arithmetic speed)
-* **$L$**: Ambient luminance (in $\text{cd/m}^2$)
-* **$K$**: Standard calibration constant ($12.5 \ \text{cd}\cdot\text{s/m}^2$)
-
-### 1. Component Definitions
-
-* **Aperture Value ($av$):**
-  $$av = \log_2(N^2)$$
-
-* **Time Value ($tv$):**
-  $$tv = \log_2(t)$$
-
-* **Speed Value ($sv$):**
-  $$sv = \log_2\left(\frac{S}{100}\right)$$
-
-* **External Light Value ($LV_{\text{ext}}$):**
-  $$LV_{\text{ext}} = \log_2\left(\frac{L \cdot 100}{K}\right)$$
-
-### 2. Camera Light Value & Compensation
-
-* **Camera Light Value ($LV_{\text{cam}}$):**
-  $$LV_{\text{cam}} = av - tv - sv$$
-
-* **Exposure Compensation ($\Delta LV$):**
-  $$\Delta LV = LV_{\text{ext}} - LV_{\text{cam}}$$
+### 🔍 Quick Theoretical Overview
+* **The Historical Legacy:** Why the old $EV$ scale forces you to specify a fixed ISO, and how digital workflows turned ISO into a dynamic parameter.
+* **The APEX Normalization:** Moving sensor sensitivity to the camera's side of the equation to isolate ambient luminance ($L$) as the only true external variable.
+* **The Additive Matrix:** How the subtractive formula $LV_{\text{cam}} = av - tv - sv$ allows instant manual exposure math across f-stops.
 
 ---
 
-## 🛠️ Installation & Quick Start
-
-```bash
-git clone https://github.com
-cd exposure-value-to-light-value
-pip install -r requirements.txt
-python main.py --aperture 1.4 --time 1 --iso 100 --luminance 350
-```
----
-
-## 📖 Deep Dive & Background Documentation
-Want to learn more about the mathematics and historical legacy behind this project? Check out the full breakdown:
-* [Read the Article in our GitHub Wiki](https://github.com/jackwelsh007-arch/exposure-value-to-light-value/wiki)
-* [Read the Article in the Repository Docs](docs/article.md)
-
-## 🤝 Contributing
-Contributions and issues are welcome!
-
+### 💻 Companion Code (Optional)
+For those who want to see the mathematics in practice, a small companion command-line calculator is included in `main.py` to recreate a digital exposure compensation scale ($\Delta LV$). Setup and execution details can be found directly in the code comments.
