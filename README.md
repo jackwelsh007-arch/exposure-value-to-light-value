@@ -1,6 +1,7 @@
 # exposure-value-to-light-value
 
-A mathematically precise utility explaining the transition from the historical Exposure Value ($EV$) to the modern Light Value ($LV$). This project demonstrates how modern cameras utilize the APEX system for perfect exposure calculation and compensation.
+A utility explaining the transition from historical Exposure Value ($EV$) to modern Light Value ($LV$) using the APEX system. For detailed formulas, background on historical legacies, and setup instructions, please refer to the repository documentation.
+
 
 ## 🚀 Key Features
 
