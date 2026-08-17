@@ -17,7 +17,7 @@ A mathematically precise utility explaining the transition from the historical E
 * **$t$**: Shutter speed / exposure time (in seconds)
 * **$S$**: Sensor sensitivity (ISO arithmetic speed)
 * **$L$**: Ambient luminance (in $\text{cd/m}^2$)
-* **$K$**: Standard calibration constant ($= 12.5 \ \text{cd}\cdot\text{s/m}^2$)
+* **$K$**: Standard calibration constant ($12.5 \ \text{cd}\cdot\text{s/m}^2$)
 
 ### 1. Component Definitions
 
