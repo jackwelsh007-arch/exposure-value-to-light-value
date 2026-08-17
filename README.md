@@ -57,7 +57,7 @@ python main.py --aperture 1.4 --time 1 --iso 100 --luminance 350
 
 ## 📖 Deep Dive & Background Documentation
 Want to learn more about the mathematics and historical legacy behind this project? Check out the full breakdown:
-* [Read the Article in our GitHub Wiki](https://github.com)
+* [Read the Article in our GitHub Wiki](https://github.com/jackwelsh007-arch/exposure-value-to-light-value/wiki)
 * [Read the Article in the Repository Docs](docs/article.md)
 
 ## 🤝 Contributing
