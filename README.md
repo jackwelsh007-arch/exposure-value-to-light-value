@@ -12,16 +12,34 @@ A mathematically precise utility explaining the transition from the historical E
 
 ## 📐 The Mathematics
 
+### Variable Definitions
+* **$N$**: Aperture (f-number)
+* **$t$**: Shutter speed / exposure time (in seconds)
+* **$S$**: Sensor sensitivity (ISO arithmetic speed)
+* **$L$**: Ambient luminance (in $\text{cd/m}^2$)
+* **$K$**: Standard calibration constant ($12.5 \ \text{cd}\cdot\text{s/m}^2$)
+
 ### 1. Component Definitions
-* **Aperture Value ($av$):** $av = \log_2(N^2)$
-* **Time Value ($tv$):** $tv = \log_2(t)$
-* **Speed Value ($sv$):** $sv = \log_2\left(\frac{S}{100}\right)$
-* **External Light Value ($LV_{\text{ext}}$):** $LV_{\text{ext}} = \log_2\left(\frac{L \cdot 100}{K}\right)$ 
-  *(where $K = 12.5 \ \text{cd}\cdot\text{s/m}^2$ is the standard calibration constant)*
+
+* **Aperture Value ($av$):**
+  $$av = \log_2(N^2)$$
+
+* **Time Value ($tv$):**
+  $$tv = \log_2(t)$$
+
+* **Speed Value ($sv$):**
+  $$sv = \log_2\left(\frac{S}{100}\right)$$
+
+* **External Light Value ($LV_{\text{ext}}$):**
+  $$LV_{\text{ext}} = \log_2\left(\frac{L \cdot 100}{K}\right)$$
 
 ### 2. Camera Light Value & Compensation
-* $LV_{\text{cam}} = av - tv - sv$
-* $\Delta LV = LV_{\text{ext}} - LV_{\text{cam}}$
+
+* **Camera Light Value ($LV_{\text{cam}}$):**
+  $$LV_{\text{cam}} = av - tv - sv$$
+
+* **Exposure Compensation ($\Delta LV$):**
+  $$\Delta LV = LV_{\text{ext}} - LV_{\text{cam}}$$
 
 ---
 
