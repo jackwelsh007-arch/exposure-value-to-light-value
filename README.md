@@ -5,7 +5,7 @@ This repository hosts a comprehensive article on the mathematical evolution of e
 ## 📖 Read the Full Article
 The complete in-depth analysis, including all mathematical proofs, practical photographic implications, and the breakdown of linear f-stop components ($av, tv, sv$), is fully hosted in the project wiki:
 
-👉 **[Click here to read the article in the GitHub Wiki](https://github.com](https://github.com/jackwelsh007-arch/exposure-value-to-light-value/wiki)**
+👉 **[Click here to read the article in the GitHub Wiki](https://github.com/jackwelsh007-arch/exposure-value-to-light-value/wiki)**
 
 ---
 
