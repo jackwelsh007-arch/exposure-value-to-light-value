@@ -46,17 +46,11 @@ A mathematically precise utility explaining the transition from the historical E
 ## 🛠️ Installation & Quick Start
 
 ```bash
-# Clone this repository
 git clone https://github.com
-
-# Navigate into the project folder
 cd exposure-value-to-light-value
-
-# Install dependencies (if applicable)
 pip install -r requirements.txt
-
-# Run the calculator script
 python main.py --aperture 1.4 --time 1 --iso 100 --luminance 350
 ```
+
 ## 🤝 Contributing
 Contributions and issues are welcome!
