@@ -1,6 +1,8 @@
-Welcome to the exposure-value-to-light-value wiki!
+# Demystifying the APEX System: The Transition from Exposure Value to Modern Light Value
 
-# Camera Settings and the Exposure Triangle
+---
+
+## Camera Settings and the Exposure Triangle
 
 For optimal exposure, modern cameras provide three adjustable parameters: the aperture f-number ($N$), the exposure time or shutter speed ($t$), and the sensor sensitivity ($S$, ISO arithmetic speed / film speed).
 
