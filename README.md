@@ -1,6 +1,8 @@
 # Demystifying the APEX System: From Historical "Exposure Value" to Modern Light Value
 
-This repository hosts a comprehensive article on the mathematical evolution of exposure settings in photography, exposing the historical legacy of the traditional Exposure Value ($EV$) and showcasing why modern digital sensors rely on Light Values ($LV$).
+> **Scope:** This framework and simulation strictly model the internal, automated in-camera metering software logic (output lightness) and are not a practical guide for raw exposure optimization (like ETTR).
+
+This repository hosts a comprehensive article on the mathematical evolution of exposure settings...
 
 ## 📖 Use the interactive light meter simulation
 To get an intuitive understanding of how the math works behind the scenes:
