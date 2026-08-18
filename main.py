@@ -2,7 +2,7 @@ import math
 import argparse
 
 def calculate_apex(aperture, shutter_speed, iso, luminance, k=12.5):
-    # Berechnung der APEX-Werte (av, tv, sv) sowie Lichtwerte (LV_cam, LV_ext) und Belichtungsdifferenz (Delta LV)
+    # Computation of APEX-Values (av, tv, sv) and Light Values (LV_cam, LV_ext) and Light Value Difference (Delta LV)
     av = math.log2(aperture ** 2)
     tv = math.log2(shutter_speed)
     sv = math.log2(iso / 100)
@@ -13,7 +13,7 @@ def calculate_apex(aperture, shutter_speed, iso, luminance, k=12.5):
     return av, tv, sv, lv_cam, lv_ext, delta_lv
 
 def draw_light_meter(delta_lv):
-    # Generiert eine visuelle Belichtungsskala von -3 bis +3 Stufen
+    # Generates a visual light meter scale from -3 to +3 stops
     meter_range = range(-3, 4)
     pointer_pos = round(delta_lv)
     scale_chars = ["▲" if x == pointer_pos else "┃" if x == 0 else "·" for x in meter_range]
