@@ -11,7 +11,7 @@ The complete in-depth analysis, including all mathematical proofs, practical pho
 
 ### 🔍 Quick Theoretical Overview
 * **The Historical Legacy:** Why the old $EV$ scale forces you to specify a fixed ISO, and how digital workflows turned ISO into a dynamic parameter.
-* **The APEX Normalization:** Moving sensor sensitivity to the camera's side of the equation to isolate ambient luminance ($L$) as the only true external variable.
+* **The APEX Normalization:** Moving ISO speed to the camera's side of the equation to isolate ambient luminance ($L$) as the only true external variable.
 * **The Additive Matrix:** How the subtractive formula $LV_{\text{cam}} = av - tv - sv$ allows instant manual exposure math across f-stops.
 
 ---
