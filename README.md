@@ -2,6 +2,11 @@
 
 This repository hosts a comprehensive article on the mathematical evolution of exposure settings in photography, exposing the historical legacy of the traditional Exposure Value ($EV$) and showcasing why modern digital sensors rely on Light Values ($LV$).
 
+## 📖 Use the interactive light meter simulation
+To get an intuitive understanding of how the math works behind the scenes:
+
+👉 **[![Open In Colab](https://github.com/photominion777/exposure-value-to-light-value/blob/main/Light_Meter_Simulation.ipynb)](https://google.com)**
+
 ## 📖 Read the Full Article
 The complete in-depth analysis, including all mathematical proofs, practical photographic implications, and the breakdown of linear f-stop components ($av, tv, sv$), is fully hosted in the project wiki:
 
