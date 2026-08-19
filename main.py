@@ -66,83 +66,26 @@ def calculate_and_display(L_input: float, N: float, t_str: str, S: float):
 
     current_name = get_lighting_name(LV_ext)
 
-    # ABSOLUTELY FIXED STABLE ASCII MATRIX (Both rows are exactly 75 characters)
-    scale_header = " <   -5    -4    -3    -2    -1     0    +1    +2    +3    +4    +5   > "
-    base_ticks   = " |    |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |    | "
+    # 100% STATIC MONOSPACE TEMPLATE
+    # Every step (-5 to +5) is exactly 6 characters wide.
+    # Third stops are exactly 2 characters wide.
+    scale_header = "<-5....-4....-3....-2....-1.....0....+1....+2....+3....+4....+5>"
+    scale_ticks  = "  | . . | . . | . . | . . | . . | . . | . . | . . | . . | . . |  "
     
-    # Exact character index mapping for every third-stop tick mark in base_ticks
-    # Center 0.0 is exactly at index 37
-    tick_indices = [
-        6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48,   # -5.0 to -0.33
-        51,                                                         # 0.00 (Center)
-        54, 57, 60, 63, 66, 69, 72, 75, 78, 81, 84, 87, 90, 93, 96  # +0.33 to +5.0
-    ]
-
-    # Re-mapping everything onto a perfectly aligned string template
-    scale_header = " <   -5     -4     -3     -2     -1      0     +1     +2     +3     +4     +5   > "
-    base_ticks   = " |    |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |    | "
-
-    # Let's use simpler index tracking to prevent layout breaks:
-    # We define the template and just overwrite one single character slot.
-    header = " <   -5    -4    -3    -2    -1     0    +1    +2    +3    +4    +5   > "
-    ticks  = "      |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |      "
-    
-    # 31 standard slots matching the layout above perfectly
-    slots = [
-        6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36,  # -5 to -2
-        39, 42, 45,                                # -1
-        48,                                        # 0 (Center)
-        51, 54, 57,                                # +1
-        60, 63, 66, 69, 72, 75, 78, 81, 84, 87     # +2 to +5
-    ]
-    
-    # To avoid font-width bugs with '▲', we use standard 'A' or '^' which have 
-    # the exact same pixel width as spaces, dots, and pipes in every terminal.
-    ticks_list = list(ticks)
-    
+    # Base padding for the pointer row to align with the first tick mark at '-5'
+    # Position of '-5' tick in scale_ticks is index 2.
     if delta_lv <= -5.1:
-        header = " X   -5    -4    -3    -2    -1     0    +1    +2    +3    +4    +5   > "
+        # Out of bounds left
+        scale_pointer = "▲"
     elif delta_lv >= 5.1:
-        header = " <   -5    -4    -3    -2    -1     0    +1    +2    +3    +4    +5   X "
+        # Out of bounds right
+        scale_pointer = " " * (len(scale_ticks) - 3) + "▲"
     else:
-        closest_slot = round(delta_lv * 3) + 15  # Range 0 to 30
-        # Hardcoded accurate character position mapping for standard 6-space tabs:
-        mapping = [
-              6,  9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, # -5 to -0.33
-             51,                                                         # 0.00
-             54, 57, 60, 63, 66, 69, 72, 75, 78, 81, 84, 87, 90, 93, 96  # +0.33 to +5
-        ]
-        
-        # Safe strict re-built to completely eliminate shift:
-        header = " <   -5    -4    -3    -2    -1     0    +1    +2    +3    +4    +5   > "
-        raw_t  = "      |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |  .  .  |      "
-        t_list = list(raw_t)
-        
-        # Center index for 0 is exactly 41
-        idx_map = [
-            11, 14, 17, 20, 23, 26, 29, 32, 35, 38, 41, # Negative steps
-            44, 47, 50, 53, 56, 59, 62, 65, 68, 71, 74, # Positive steps
-        ]
-        
-        # Let's simplify the math completely to avoid any offset bugs:
-        # Every step (-5 to +5) has a major pipe '|'. 
-        # Third stops are the two dots '.' between them.
-        
-        # RE-DESIGNED 100% BULLETPROOF ALIGNMENT:
-        header = "<-5...-4...-3...-2...-1....0...+1...+2...+3...+4...+5>"
-        ticks  = "  | . . | . . | . . | . . | . . | . . | . . | . . | . . | . . |  "
-        
-        # -5 is at index 2. Every full step is exactly 6 characters wide.
-        # Every third-stop is exactly 2 characters wide.
-        t_list = list(ticks)
-        closest_tick = round(delta_lv * 3) # -15 to +15
-        target_pos = 32 + (closest_tick * 2)
-        
-        if 0 <= target_pos < len(t_list):
-            t_list[target_pos] = "^"
-            
-        scale_header = "<-5....-4....-3....-2....-1.....0....+1....+2....+3....+4....+5>"
-        scale_visual = "".join(t_list)
+        # Calculate third-stop tick slot (-15 to +15)
+        closest_tick = round(delta_lv * 3)
+        # Center is at index 32. Each step is 2 spaces.
+        target_spaces = 32 + (closest_tick * 2)
+        scale_pointer = " " * target_spaces + "▲"
 
     output_text = f"""
 ===================================================================================================
@@ -155,7 +98,8 @@ Environmental Light Value (LV_ext) :  {LV_ext:.2f}
 Δ LV Deviation (Viewfinder Indicator) : {delta_lv:+.2f} stops
 ---------------------------------------------------------------------------------------------------
  {scale_header}
- {scale_visual}
+ {scale_ticks}
+ {scale_pointer}
 ===================================================================================================
 """
 
