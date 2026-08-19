@@ -24,8 +24,20 @@ The complete in-depth analysis, including all mathematical proofs, practical pho
 ---
 
 ### 💻 Companion Code (Optional)
-For those who want to see the mathematics in practice, a small companion command-line calculator is included in `main.py` to recreate a digital exposure compensation scale ($\Delta LV$). Setup and execution details can be found directly in the code comments. Download main.py onto your computer and go to
 
-👉 **[Online Python](https://www.online-python.com/)**
+For those who want to see the mathematics in practice, a standalone command-line calculator is included in `main.py` to recreate a digital exposure compensation scale (\(\Delta LV\)).
 
-On that webpage, click on "Open file from Disk" symbol (a folder icon), choose the main.py from your pc and click run.
+#### 🚀 How to Run It Online Instantly
+1. Download `main.py` from this repository to your computer.
+2. Go to [Online Python](https://online-python.com).
+3. Click the **"Open file from Disk"** folder icon, select your downloaded `main.py`, and click **"Run"**.
+
+#### ⚠️ Note on Modifying Input Values Inside the Code
+When customizing the fallback configuration inside the `main.py` file, you will find a dedicated entry box:
+
+```python
+DEFAULT_SHUTTER   = "1/125"  # Must remain a string in quotation marks!
+```
+
+* **Why the quotation marks?** If you type a fraction like `1/125` without quotes, Python will instantly divide the numbers mathematically and convert it into a decimal float (`0.008`) *before* the script even boots up. This will crash the terminal's text parser and break error reporting. Keeping it in quotes guarantees that the script handles fractional formatting properly.
+
