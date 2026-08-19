@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
-"""
-Interactive Digital Light Meter Simulator (Δ LV)
-A standalone command-line translation of the Google Colab Light Meter.
-"""
-
 import math
 import argparse
 import sys
 
 def get_lighting_name(lv: float) -> str:
-    """Returns the environmental description based on Light Value brackets."""
     ranges = [
         (19.5, 22.5, "Industrial Laser / Lab Light"),
         (18.5, 19.5, "Arc Welding / High-Power LED"),
@@ -38,15 +32,12 @@ def get_lighting_name(lv: float) -> str:
         (-5.5, -4.5, "Crescent Moon"),
         (-7.5, -5.5, "Starlight Night"),
     ]
-
     for low, high, name in ranges:
         if low <= lv < high:
             return name
     return "Transition / Mixed Light"
 
 def calculate_and_display(L_input: float, N: float, t_str: str, S: float):
-    """Calculates exposure delta and outputs a formatted ASCII light meter."""
-    # Parse shutter speed fraction string into float
     try:
         if "/" in str(t_str):
             num, denom = map(float, t_str.split("/"))
@@ -54,47 +45,48 @@ def calculate_and_display(L_input: float, N: float, t_str: str, S: float):
         else:
             t = float(t_str)
     except ValueError:
-        print(f"Error: Invalid shutter speed format '{t_str}'. Use numbers or fractions like '1/125'.", file=sys.stderr)
+        print(f"Error: Invalid shutter speed format '{t_str}'.", file=sys.stderr)
         return
 
     K = 12.5
     L = float(L_input)
 
-    # SYSTEM SEPARATION: Left side (Camera) vs Right side (Environment)
+    if L <= 0:
+        print("Error: Luminance (L) must be greater than 0.", file=sys.stderr)
+        return
+
+    # Berechnung der Lichtwerte
     av = math.log2(N**2)
     tv = math.log2(t)
     sv = math.log2(S / 100)
     LV_cam = av - tv - sv
-
-    # Right side uses the physical luminance L
-    # Guard against domain error if L <= 0
-    if L <= 0:
-        print("Error: Luminance (L) must be greater than 0.", file=sys.stderr)
-        return
-        
     LV_ext = math.log2(L * (100 / K))
     delta_lv = LV_ext - LV_cam
 
     current_name = get_lighting_name(LV_ext)
 
-    # EXACT COURIER ALIGNMENT MATRIX
-    scale_header = " -5       -4       -3       -2       -1        0       +1       +2       +3       +4       +5  "
-
-    scale_ticks = []
-    for index in range(-15, 16):
-        tick_value = index / 3.0
-
-        if abs(delta_lv - tick_value) < (1.0 / 6.0) and -5.1 < delta_lv < 5.1:
-            scale_ticks.append("▲")
-        elif index % 3 == 0:
-            scale_ticks.append("|")
+    # MATHE-FIX FÜR DIE SKALA: Jede Stufe von -5 bis +5 hat exakt 4 Zeichen Abstand
+    # Dadurch bleibt die Leiste starr und verschiebt sich niemals im Terminal.
+    scale_header = "  -5   -4   -3   -2   -1    0   +1   +2   +3   +4   +5"
+    
+    # Generiere die Ticks (-5.0 bis +5.0 in Drittelstufen -> 31 Ticks)
+    ticks_chars = []
+    for idx in range(-15, 16):
+        tick_val = idx / 3.0
+        # Prüfen, ob die Abweichung naheliegend ist
+        if abs(delta_lv - tick_val) < (1.0 / 6.0) and -5.1 < delta_lv < 5.1:
+            ticks_chars.append("▲")
+        elif idx % 3 == 0:
+            ticks_chars.append("|")
         else:
-            scale_ticks.append("·")
+            ticks_chars.append("·")
 
-    prefix = "◀ " if delta_lv < -5.1 else "  "
-    suffix = " ▶" if delta_lv > 5.1 else "  "
-
-    scale_visual = prefix + "  ".join(scale_ticks) + suffix
+    # Setze die Indikatoren für außerhalb der Skala zusammen
+    prefix = "◀ " if delta_lv <= -5.1 else "  "
+    suffix = " ▶" if delta_lv >= 5.1 else "  "
+    
+    # Verbinde die Ticks mit genau einem Leerzeichen dazwischen für perfekte Abstände
+    scale_visual = prefix + " ".join(ticks_chars) + suffix
 
     output_text = f"""
 ===================================================================================================
@@ -124,22 +116,14 @@ Environmental Light Value (LV_ext) :  {LV_ext:.2f}
     print(output_text)
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Digital Light Meter Simulator: Calculate exposure delta between camera settings and environment."
-    )
-    parser.add_argument("-L", "--luminance", type=float, default=4096.0, help="Physical Luminance in cd/m² (default: 4096.0)")
-    parser.add_argument("-N", "--aperture", type=float, default=2.8, help="Aperture f-number (default: 2.8)")
-    parser.add_argument("-t", "--shutter", type=str, default="1/125", help="Shutter speed string or fraction (default: '1/125')")
-    parser.add_argument("-S", "--iso", type=float, default=400.0, help="ISO Speed rating (default: 400)")
+    parser = argparse.ArgumentParser(description="Digital Light Meter Simulator")
+    parser.add_argument("-L", "--luminance", type=float, default=4096.0)
+    parser.add_argument("-N", "--aperture", type=float, default=2.8)
+    parser.add_argument("-t", "--shutter", type=str, default="1/125")
+    parser.add_argument("-S", "--iso", type=float, default=400.0)
 
     args = parser.parse_args()
-
-    calculate_and_display(
-        L_input=args.luminance,
-        N=args.aperture,
-        t_str=args.shutter,
-        S=args.iso
-    )
+    calculate_and_display(L_input=args.luminance, N=args.aperture, t_str=args.shutter, S=args.iso)
 
 if __name__ == "__main__":
     main()
