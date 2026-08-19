@@ -35,10 +35,6 @@ For those who want to see the mathematics in practice, a standalone command-line
 #### ⚠️ Note on Modifying Input Values Inside the Code
 When customizing the fallback configuration inside the `main.py` file, you will find a dedicated entry box:
 
-#### ⚠️ Note on Modifying Input Values Inside the Code
-
-If you want to change the standard fallback parameters, you can modify the configuration block directly inside the `main.py` file:
-
 ```python
 # =========================================================================
 #  [ PLEASE ENTER INPUT VALUES HERE ]
