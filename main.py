@@ -1,40 +1,87 @@
+#!/usr/bin/env python3
+"""
+Demystifying the APEX System: Companion Command-Line Calculator
+Models the automated in-camera metering software logic (Δ LV deviation).
+"""
+
 import math
-import argparse
 
-def calculate_apex(aperture, shutter_speed, iso, luminance, k=12.5):
-    # Computation of APEX-Values (av, tv, sv) and Light Values (LV_cam, LV_ext) and Light Value Difference (Delta LV)
-    av = math.log2(aperture ** 2)
-    tv = math.log2(shutter_speed)
-    sv = math.log2(iso / 100)
-    lv_cam = av - tv - sv
-    l_nor = luminance * (100 / k)
-    lv_ext = math.log2(l_nor) if l_nor > 0 else 0
-    delta_lv = lv_ext - lv_cam
-    return av, tv, sv, lv_cam, lv_ext, delta_lv
+def calculate_delta_lv(L, N, t, S):
+    """
+    Computes the deviation between environmental light and camera configuration.
+    L: Physical Luminance in cd/m²
+    N: Aperture (f-number)
+    t: Shutter Speed in seconds (float)
+    S: ISO Speed
+    """
+    K = 12.5
 
-def draw_light_meter(delta_lv):
-    # Generates a visual light meter scale from -3 to +3 stops
-    meter_range = range(-3, 4)
-    pointer_pos = round(delta_lv)
-    scale_chars = ["▲" if x == pointer_pos else "┃" if x == 0 else "·" for x in meter_range]
-    return f"-3 . -2 . -1 .  0 . +1 . +2 . +3\n" + "  ".join(scale_chars)
+    # SYSTEM SEPARATION
+    # Left side: Camera settings (APEX logarithmic components)
+    av = math.log2(N**2)
+    tv = math.log2(t)
+    sv = math.log2(S / 100)
+    LV_cam = av - tv - sv
+
+    # Right side: Environment (Physical luminance normalized to ISO 100 baseline)
+    LV_ext = math.log2(L * (100 / K))
+    
+    # Deviation scale
+    delta_lv = LV_ext - LV_cam
+    return LV_cam, LV_ext, delta_lv
+
+def render_terminal_meter(delta_lv):
+    # EXACT COURIER/MONOSPACE ALIGNMENT MATRIX (95 characters wide)
+    scale_header = " -5       -4       -3       -2       -1        0       +1       +2       +3       +4       +5 "
+
+    scale_ticks = []
+    for index in range(-15, 16):
+        tick_value = index / 3.0
+
+        if abs(delta_lv - tick_value) < (1.0 / 6.0) and -5.1 < delta_lv < 5.1:
+            scale_ticks.append("▲")
+        elif index % 3 == 0:
+            scale_ticks.append("|")
+        else:
+            scale_ticks.append("·")
+
+    prefix = "◀ " if delta_lv < -5.1 else "  "
+    suffix = " ▶" if delta_lv > 5.1 else "  "
+    scale_visual = prefix + "  ".join(scale_ticks) + suffix
+
+    print(scale_header)
+    print(scale_visual)
 
 def main():
-    parser = argparse.ArgumentParser(description="APEX Exposure & Light Value Calculator")
-    parser.add_argument("--aperture", type=float, required=True)
-    parser.add_argument("--time", type=float, required=True)
-    parser.add_argument("--iso", type=float, required=True)
-    parser.add_argument("--luminance", type=float, required=True)
-    args = parser.parse_args()
+    print("===============================================================================================")
+    print("[ INTERNAL DIGITAL LIGHT METER ANALYSIS ]")
+    print("===============================================================================================")
     
-    av, tv, sv, lv_cam, lv_ext, delta_lv = calculate_apex(args.aperture, args.time, args.iso, args.luminance)
-    print("Aperture Value (av):", av)
-    print("Time Value (tv):", tv)
-    print("Speed Value (sv):", sv)
-    print("Camera LV:", lv_cam)
-    print("External LV:", lv_ext)
-    print("Exposure Meter:")
-    print(draw_light_meter(delta_lv))
+    # Standard demo scenario (Matches your Colab initial states)
+    L = 128.0      # Scene Luminance (cd/m²)
+    N = 2.8        # Aperture
+    t = 1 / 125.0  # Shutter speed (using exact mathematical fraction)
+    S = 400        # ISO
+    
+    LV_cam, LV_ext, delta_lv = calculate_delta_lv(L, N, t, S)
+    
+    print(f"Calculated Physical Luminance (L)  :  {L:.2f} cd/m²")
+    print(f"Camera Light Value (LV_cam)        :  {LV_cam:.2f}")
+    print(f"Environmental Light Value (LV_ext) :  {LV_ext:.2f}") 
+    print("-----------------------------------------------------------------------------------------------")
+    print(f"Δ LV Deviation (Viewfinder Indicator) : {delta_lv:+.2f} stops")
+    print("-----------------------------------------------------------------------------------------------")
+    
+    render_terminal_meter(delta_lv)
+    print("===============================================================================================")
+
+    # Your original, corrected exposure logic
+    if abs(delta_lv) < 0.17:
+        print("✅ EXPOSURE BALANCE: Perfectly matched. Light values are optimal.")
+    elif delta_lv > 0:
+        print("⚠️ OVEREXPOSURE: Camera configuration requires adjustment for a brighter scene.")
+    else:
+        print("⚠️ UNDEREXPOSURE: Camera configuration requires adjustment for a darker scene.")
 
 if __name__ == "__main__":
     main()
