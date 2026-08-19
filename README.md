@@ -26,6 +26,6 @@ The complete in-depth analysis, including all mathematical proofs, practical pho
 ### 💻 Companion Code (Optional)
 For those who want to see the mathematics in practice, a small companion command-line calculator is included in `main.py` to recreate a digital exposure compensation scale ($\Delta LV$). Setup and execution details can be found directly in the code comments. Download main.py onto your computer and go to
 
-👉 **[online python](https://www.online-python.com/)**
+👉 **[Online Python](https://www.online-python.com/)**
 
 On that webpage, click on "Open file from Disk" symbol (a folder icon), choose the main.py from your pc and click run.
