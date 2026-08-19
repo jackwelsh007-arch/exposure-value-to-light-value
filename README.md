@@ -23,9 +23,9 @@ The complete in-depth analysis, including all mathematical proofs, practical pho
 
 ---
 
-### 💻 Companion Code (Optional)
+### 💻 Companion Code (Console Version)
 
-For those who want to see the mathematics in practice, a standalone command-line calculator is included in `main.py` to recreate a digital exposure compensation scale $\(\Delta LV\)$.
+If you prefer a lightweight terminal-based calculator instead of the full interactive notebook, a clean Python execution script is included in `main.py` to output the exposure compensation scale (Δ LV) directly to your console.
 
 #### 🚀 How to Run It Online Instantly
 1. Download `main.py` from this repository to your computer.
@@ -33,7 +33,8 @@ For those who want to see the mathematics in practice, a standalone command-line
 3. Click the **"Open file from Disk"** folder icon, select your downloaded `main.py`, and click **"Run"**.
 
 #### ⚠️ Note on Modifying Input Values Inside the Code
-When customizing the fallback configuration inside the `main.py` file, you will find a dedicated entry box:
+
+To change the default parameters in this console version, you can modify the configuration block directly inside the `main.py` file:
 
 ```python
 # =========================================================================
