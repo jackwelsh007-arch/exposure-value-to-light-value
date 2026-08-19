@@ -35,9 +35,26 @@ For those who want to see the mathematics in practice, a standalone command-line
 #### ⚠️ Note on Modifying Input Values Inside the Code
 When customizing the fallback configuration inside the `main.py` file, you will find a dedicated entry box:
 
+#### ⚠️ Note on Modifying Input Values Inside the Code
+
+If you want to change the standard fallback parameters, you can modify the configuration block directly inside the `main.py` file:
+
 ```python
-DEFAULT_SHUTTER   = "1/125"  # Must remain a string in quotation marks!
+# =========================================================================
+#  [ PLEASE ENTER INPUT VALUES HERE ]
+#  Modify these default fallback values directly in the code if you run
+#  the script without passing terminal arguments (e.g., --iso 400).
+# =========================================================================
+DEFAULT_LUMINANCE = 4096.0   # Physical Luminance in cd/m²
+DEFAULT_APERTURE  = 16.0     # Aperture f-number (N)
+DEFAULT_SHUTTER   = "1/125"  # Shutter speed (t) as a string or fraction
+DEFAULT_ISO       = 100.0    # ISO speed rating (S)
+# =========================================================================
 ```
+
+* **Why is `DEFAULT_SHUTTER` wrapped in quotation marks?** 
+  Unlike the other numerical fields, the shutter speed must remain a string (`"1/125"`). If you type a fraction like `1/125` without quotes, Python will instantly execute a mathematical division and convert it into a decimal float (`0.008`) *before* the script even starts. This breaks the terminal's input text parser and causes a crash. Keeping it as a string ensures proper fraction handling and clean error messages.
+
 
 * **Why the quotation marks?** If you type a fraction like `1/125` without quotes, Python will instantly divide the numbers mathematically and convert it into a decimal float (`0.008`) *before* the script even boots up. This will crash the terminal's text parser and break error reporting. Keeping it in quotes guarantees that the script handles fractional formatting properly.
 
