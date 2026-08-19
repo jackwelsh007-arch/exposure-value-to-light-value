@@ -2,7 +2,7 @@
 
 > **Scope:** This framework and simulation strictly model the internal, automated in-camera metering software logic (output lightness) and are not a practical guide for raw exposure optimization (like ETTR).
 
-This repository hosts a comprehensive article on the mathematical evolution of exposure settings...
+This repository hosts a comprehensive article on the mathematical evolution of exposure settings.
 
 ## 📖 Use the interactive light meter simulation
 To get an intuitive understanding of how the math works behind the scenes:
