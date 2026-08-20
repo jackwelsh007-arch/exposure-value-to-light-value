@@ -5,7 +5,7 @@
 ## 📖 Interactive Linear RAW Meter Simulation & Full Article
 
 - **Simulation:** [Open the Interactive Simulation in Google Colab](INSERT_YOUR_COLAB_SHARE_LINK_HERE)
-- **Full Article:** [Read the comprehensive analysis in the GitHub Wiki](../wiki/A-Utopia-for-RAW-Shooters:-Linear-RAW-Meters)
+- **Full Article:** [Read the comprehensive analysis in the GitHub Wiki](https://github.com/photominion777/exposure-value-to-light-value/wiki/A-Utopia-for-RAW-Shooters%3A-An-Extension-from-Light-Meters-to-Linear-RAW-Meters-%28ETTR%29)
 
 ### 🔍 Quick Theoretical Overview
 - **The Fixed Ceiling:** Tracks a constant digital saturation ceiling (\(y_{\text{sat}}\)) instead of shifting targets based on JPEG lightness.
