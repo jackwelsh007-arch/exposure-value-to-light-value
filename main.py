@@ -1,9 +1,22 @@
 #!/usr/bin/env python3
+"""
+Digital Light Meter Simulator (Core Engine)
+Converts human-readable camera values (rounded manufacturer steps) into mathematically 
+exact 1/3 f-stop values internally for perfect APEX exposure calculations.
+Uses a rock-solid, fixed monospace template layout for terminal safety.
+"""
+
 import math
 import argparse
 import sys
 
+# Global option lists representing the standard manufacturer display values
+N_OPTIONS = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 2.8, 3.2, 3.5, 4.0, 4.5, 5.0, 5.6, 6.3, 7.1, 8.0, 9.0, 10, 11, 13, 14, 16, 18, 20, 22, 25, 29, 32]
+T_OPTIONS = ["1", "1/1.3", "1/1.6", "1/2", "1/2.5", "1/3.2", "1/4", "1/5", "1/6", "1/8", "1/10", "1/13", "1/15", "1/20", "1/25", "1/30", "1/40", "1/50", "1/60", "1/80", "1/100", "1/125", "1/160", "1/200", "1/250", "1/320", "1/400", "1/500", "1/640", "1/800", "1/1000", "1/1250", "1/1600", "1/2000", "1/2500", "1/3200", "1/4000", "1/5000", "1/6400", "1/8000"]
+S_OPTIONS = [100, 125, 160, 200, 250, 320, 400, 500, 640, 800, 1000, 1250, 1600, 2000, 2500, 3200, 4000, 5000, 6400, 8000, 10000, 12800, 16000, 20000, 25600, 32000, 40000, 51200]
+
 def get_lighting_name(lv: float) -> str:
+    """Returns the descriptive environmental name based on the calculated Light Value."""
     ranges = [
         (19.5, 22.5, "Industrial Laser / Lab Light"),
         (18.5, 19.5, "Arc Welding / High-Power LED"),
@@ -38,16 +51,23 @@ def get_lighting_name(lv: float) -> str:
     return "Transition / Mixed Light"
 
 def calculate_and_display(L_input: float, N: float, t_str: str, S: float):
+    # 1. MAP DISPLAY VALUES TO MATHEMATICALLY EXACT VALUES (1/3 STOPS)
     try:
-        if "/" in str(t_str):
-            num, denom = map(float, t_str.split("/"))
-            t = num / denom
-        else:
-            t = float(t_str)
-    except ValueError:
-        print(f"Error: Invalid shutter speed format '{t_str}'.",
-              file=sys.stderr)
+        idx_N = N_OPTIONS.index(N)
+        idx_t = T_OPTIONS.index(t_str)
+        idx_S = S_OPTIONS.index(S)
+    except ValueError as e:
+        print(f"Error: Entered value is not in the standardized third-stop lists.\nDetails: {e}", file=sys.stderr)
         return
+
+    # Aperture (N): Base f/1.0 is at index 3. Steps scale exactly by 2^(1/6)
+    N_exact = 1.0 * (2**(1/6))**(idx_N - 3)
+    
+    # Shutter Speed (t): Base 1s is at index 0. Steps go to shorter times (2^(-1/3))
+    t_exact = 1.0 * (2**(-1/3))**idx_t
+    
+    # ISO Speed (S): Base ISO 100 is at index 0. Steps scale by 2**(1/3)
+    S_exact = 100.0 * (2**(1/3))**idx_S
 
     K = 12.5
     L = float(L_input)
@@ -56,24 +76,22 @@ def calculate_and_display(L_input: float, N: float, t_str: str, S: float):
         print("Error: Luminance (L) must be greater than 0.", file=sys.stderr)
         return
 
-    # Calculate light values
-    av = math.log2(N**2)
-    tv = math.log2(t)
-    sv = math.log2(S / 100)
+    # 2. SYSTEM SEPARATION & APEX CALCULATIONS (Using exact values for flawless snapping)
+    av = math.log2(N_exact**2)
+    tv = math.log2(t_exact)
+    sv = math.log2(S_exact / 100)
     LV_cam = av - tv - sv
+    
     LV_ext = math.log2(L * (100 / K))
     delta_lv = LV_ext - LV_cam
 
     current_name = get_lighting_name(LV_ext)
 
-    # 100% STATIC MONOSPACE TEMPLATE
-    # Every step (-5 to +5) is exactly 6 characters wide.
-    # Third stops are exactly 2 characters wide.
+    # 100% STATIC MONOSPACE TEMPLATE (From your original layout)
     scale_header = "<-5....-4....-3....-2....-1.....0....+1....+2....+3....+4....+5>"
     scale_ticks  = "  | . . | . . | . . | . . | . . | . . | . . | . . | . . | . . |  "
     
-    # Base padding for the pointer row to align with the first tick mark at '-5'
-    # Position of '-5' tick in scale_ticks is index 2.
+    # Calculate pointer position on the monospace layout
     if delta_lv <= -5.1:
         # Out of bounds left
         scale_pointer = "▲"
@@ -81,9 +99,9 @@ def calculate_and_display(L_input: float, N: float, t_str: str, S: float):
         # Out of bounds right
         scale_pointer = " " * (len(scale_ticks) - 3) + "▲"
     else:
-        # Calculate third-stop tick slot (-15 to +15)
+        # Find closest third-stop tick slot (-15 to +15)
         closest_tick = round(delta_lv * 3)
-        # Center is at index 32. Each step is 2 spaces.
+        # Golden center (0) is exactly at index 32. Each third-stop deviates by 2 spaces.
         target_spaces = 32 + (closest_tick * 2)
         scale_pointer = " " * target_spaces + "▲"
 
@@ -127,8 +145,6 @@ Camera Light Value (LV_cam)        :  {LV_cam:.2f}
 def main():
     # =========================================================================
     #  [ PLEASE ENTER INPUT VALUES HERE ]
-    #  Modify these default fallback values directly in the code if you run
-    #  the script without passing terminal arguments (e.g., --iso 400).
     # =========================================================================
     DEFAULT_LUMINANCE = 4096.0   # Physical Luminance in cd/m²
     DEFAULT_APERTURE  = 16.0     # Aperture f-number (N)
