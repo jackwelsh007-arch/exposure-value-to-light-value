@@ -52,6 +52,3 @@ DEFAULT_ISO       = 100.0    # ISO speed rating (S)
 * **Why is `DEFAULT_SHUTTER` wrapped in quotation marks?** 
   Unlike the other numerical fields, the shutter speed must remain a string (`"1/125"`). If you type a fraction like `1/125` without quotes, Python will instantly execute a mathematical division and convert it into a decimal float (`0.008`) *before* the script even starts. This breaks the terminal's input text parser and causes a crash. Keeping it as a string ensures proper fraction handling and clean error messages.
 
-
-* **Why the quotation marks?** If you type a fraction like `1/125` without quotes, Python will instantly divide the numbers mathematically and convert it into a decimal float (`0.008`) *before* the script even boots up. This will crash the terminal's text parser and break error reporting. Keeping it in quotes guarantees that the script handles fractional formatting properly.
-
