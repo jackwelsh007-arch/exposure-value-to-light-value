@@ -23,18 +23,18 @@ The complete in-depth analysis, including all mathematical proofs, practical pho
 
 ---
 
-### 💻 Companion Code (Console Version)
+### 💻 Companion Code (Python Script Version)
 
-If you prefer a lightweight terminal-based calculator instead of the full interactive notebook, a clean Python execution script is included in `main.py` to output the exposure compensation scale (Δ LV) directly to your console.
+If you prefer a lightweight Python script instead of the full interactive notebook, you can run the code inside `main.py` directly in your browser using an online compiler to view the exposure compensation scale (Δ LV).
 
 #### 🚀 How to Run It Online Instantly
 1. Download `main.py` from this repository to your computer.
 2. Go to [Online Python](https://online-python.com).
-3. Click the **"Open file from Disk"** folder icon, select your downloaded `main.py`, and click **"Run"**.
+3. Click the **"Open file from Disk"** folder icon, select your downloaded `main.py`, and click **"Run"**. The output will appear instantly on the screen below the code.
 
 #### ⚠️ Note on Modifying Input Values Inside the Code
 
-To change the default parameters in this console version, you can modify the configuration block directly inside the `main.py` file:
+To change the default parameters in this script version, you can modify the configuration block directly inside the editor:
 
 ```python
 # =========================================================================
