@@ -13,10 +13,10 @@
 - **The Decoupled Matrix:** Uses \(\Delta y_{\text{Display}} = \Delta y_{\text{ETTR}} - EC_{\text{user}}\) for viewfinder needle functionality while keeping data distribution static.
 
 ### 💻 Companion Code (Python Script Version)
-Run `raw_logic_part1.py` and `raw_ui_part2.py` locally or via an online Python environment. Ensure `DEFAULT_SHUTTER` remains a string (e.g., `"1/125"`) for the stop-mapping parser.
+Run `raw-meter.py` locally or via an online Python environment. Ensure `DEFAULT_SHUTTER` remains a string (e.g., `"1/125"`) for the stop-mapping parser.
 
 ```bash
-python raw_ui_part2.py
+python raw-meter.py
 ```
 
 ## 📄 License
