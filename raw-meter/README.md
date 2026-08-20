@@ -4,7 +4,7 @@
 
 ## 📖 Interactive Linear RAW Meter Simulation & Full Article
 
-*   **Simulation:** [Open in Google Colab](INSERT_YOUR_COLAB_SHARE_LINK_HERE)
+*   **Simulation:** [Open in Google Colab](https://colab.research.google.com/github/photominion777/exposure-value-to-light-value/blob/main/raw-meter/RAW_Meter_Simulation.ipynb)
 *   **Full Article:** [Read the GitHub Wiki](https://github.com/photominion777/exposure-value-to-light-value/wiki/A-Utopia-for-RAW-Shooters%3A-An-Extension-from-Light-Meters-to-Linear-RAW-Meters-%28ETTR%29)
 
 ### 🔍 Quick Theoretical Overview
