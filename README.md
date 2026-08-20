@@ -32,23 +32,21 @@ If you prefer a lightweight Python script instead of the full interactive notebo
 2. Go to [Online Python](https://online-python.com).
 3. Click the **"Open file from Disk"** folder icon, select your downloaded `main.py`, and click **"Run"**. The output will appear instantly on the screen below the code.
 
-#### ⚠️ Note on Modifying Input Values Inside the Code
+#### ⚠ Note on Modifying Input Values Inside the Code
 
-To change the default parameters in this script version, you can modify the configuration block directly inside the editor:
+You can modify default parameters directly in the configuration block of the script:
 
 ```python
-# =========================================================================
-#  [ PLEASE ENTER INPUT VALUES HERE ]
-#  Modify these default fallback values directly in the code if you run
-#  the script without passing terminal arguments (e.g., --iso 400).
-# =========================================================================
 DEFAULT_LUMINANCE = 4096.0   # Physical Luminance in cd/m²
 DEFAULT_APERTURE  = 16.0     # Aperture f-number (N)
-DEFAULT_SHUTTER   = "1/125"  # Shutter speed (t) as a string or fraction
+DEFAULT_SHUTTER   = "1/125"  # Shutter speed (t) as a string
 DEFAULT_ISO       = 100.0    # ISO speed rating (S)
-# =========================================================================
 ```
 
-* **Why is `DEFAULT_SHUTTER` wrapped in quotation marks?** 
-  Unlike the other numerical fields, the shutter speed must remain a string (`"1/125"`). If you type a fraction like `1/125` without quotes, Python will instantly execute a mathematical division and convert it into a decimal float (`0.008`) *before* the script even starts. This breaks the terminal's input text parser and causes a crash. Keeping it as a string ensures proper fraction handling and clean error messages.
+* **Why quotes on `DEFAULT_SHUTTER`?** It must remain a string (`"1/125"`). Without quotes, Python evaluates it as a float (`0.008`) and bypasses the internal stop-mapping parser.
 
+#### 🖥️ Running Locally via Terminal (Advanced)
+Alternatively, pass parameters via command-line flags:
+```bash
+python main.py --luminance 4096 --aperture 16 --shutter 1/125 --iso 100
+```
