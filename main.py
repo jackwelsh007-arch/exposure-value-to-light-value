@@ -92,8 +92,8 @@ def calculate_and_display(L_input: float, N: float, t_str: str, S: float):
 [ INTERNAL DIGITAL LIGHT METER ANALYSIS ]
 ===================================================================================================
 Calculated Physical Luminance (L)  :  {L:.2f} cd/m² ({current_name})
-Camera Light Value (LV_cam)        :  {LV_cam:.2f}
 Environmental Light Value (LV_ext) :  {LV_ext:.2f}
+Camera Light Value (LV_cam)        :  {LV_cam:.2f}
 ---------------------------------------------------------------------------------------------------
 Δ LV Deviation (Viewfinder Indicator) : {delta_lv:+.2f} stops
 ---------------------------------------------------------------------------------------------------
