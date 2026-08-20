@@ -122,7 +122,7 @@ Camera Light Value (LV_cam)        :  {LV_cam:.2f}
 """
 
     if abs(delta_lv) < 0.17:
-        output_text += "✅ EXPOSURE BALANCE: Perfectly matched. Light values are optimal."
+        output_text += "✅ EXPOSURE BALANCE: Perfect match. Camera Light Value aligns with Environmental Light Value."
     elif delta_lv > 0:
         output_text += (
             "⚠️ OVEREXPOSURE: Camera configuration requires adjustment "
