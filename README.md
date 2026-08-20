@@ -37,10 +37,14 @@ If you prefer a lightweight Python script instead of the full interactive notebo
 You can modify default parameters directly in the configuration block of the script:
 
 ```python
+# =========================================================================
+#  [ PLEASE ENTER INPUT VALUES HERE ]
+# =========================================================================
 DEFAULT_LUMINANCE = 4096.0   # Physical Luminance in cd/m²
 DEFAULT_APERTURE  = 16.0     # Aperture f-number (N)
 DEFAULT_SHUTTER   = "1/125"  # Shutter speed (t) as a string
 DEFAULT_ISO       = 100.0    # ISO speed rating (S)
+# =========================================================================
 ```
 
 * **Why quotes on `DEFAULT_SHUTTER`?** It must remain a string (`"1/125"`). Without quotes, Python evaluates it as a float (`0.008`) and bypasses the internal stop-mapping parser.
