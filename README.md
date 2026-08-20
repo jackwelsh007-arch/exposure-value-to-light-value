@@ -54,3 +54,8 @@ Alternatively, pass parameters via command-line flags:
 ```bash
 python main.py --luminance 4096 --aperture 16 --shutter 1/125 --iso 100
 ```
+
+## 📄 License
+
+This project is open-source and licensed under the terms of the **MIT License**. For full academic or commercial reuse terms, please refer to the project Wiki.
+
