@@ -28,9 +28,9 @@ The complete in-depth analysis, including all mathematical proofs, practical pho
 If you prefer a lightweight Python script instead of the full interactive notebook, you can run the code inside `main.py` directly in your browser using an online compiler to view the exposure compensation scale (Δ LV).
 
 #### 🚀 How to Run It Online Instantly
-1. Download `main.py` from this repository to your computer.
+1. Download `light-meter.py` from this repository to your computer.
 2. Go to [Online Python](https://online-python.com).
-3. Click the **"Open file from Disk"** folder icon, select your downloaded `main.py`, and click **"Run"**. The output will appear instantly on the screen below the code.
+3. Click the **"Open file from Disk"** folder icon, select your downloaded `light-meter.py`, and click **"Run"**. The output will appear instantly on the screen below the code.
 
 #### ⚠ Note on Modifying Input Values Inside the Code
 
@@ -52,7 +52,7 @@ DEFAULT_ISO       = 100.0    # ISO speed rating (S)
 #### 🖥️ Running Locally via Terminal (Advanced)
 Alternatively, pass parameters via command-line flags:
 ```bash
-python main.py --luminance 4096 --aperture 16 --shutter 1/125 --iso 100
+python light-meter.py --luminance 4096 --aperture 16 --shutter 1/125 --iso 100
 ```
 
 ## 📄 License
