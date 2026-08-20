@@ -12,7 +12,7 @@ To get an intuitive understanding of how the math works behind the scenes:
 ## 📖 Read the Full Article
 The complete in-depth analysis, including all mathematical proofs, practical photographic implications, and the breakdown of linear f-stop components ($av, tv, sv$), is fully hosted in the project wiki:
 
-👉 **[Click here to read the article in the GitHub Wiki](https://github.com/jackwelsh007-arch/exposure-value-to-light-value/wiki](https://github.com/photominion777/exposure-value-to-light-value/wiki/Demystifying-the-APEX-System%3A-The-Transition-from-Exposure-Value-to-Modern-Light-Value)**
+👉 **[Click here to read the article in the GitHub Wiki](https://github.com/photominion777/exposure-value-to-light-value/wiki/Demystifying-the-APEX-System%3A-The-Transition-from-Exposure-Value-to-Modern-Light-Value)**
 
 ---
 
