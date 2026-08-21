@@ -10,7 +10,7 @@
 ## 🔍 The Core Essence
 
 > [!NOTE]
-> **Key Takeaway:** A true RAW exposure meter computes the RAW signal deviation to measure the exact linear distance between the sensor's saturation limit and the peak signal of the brightest color channel.
+> **Key Takeaway:** A true RAW exposure meter computes the RAW signal deviation to measure the exact linear distance between the peak signal of the brightest color channel and the sensor's saturation limit.
 > 
 > * **Input-Driven Physics:** Evaluates raw data strictly at the sensor level based on physical capacity rather than arbitrary mid-gray outputs.
 > * **Effective Headroom Tracking:** Accounts for the fixed hardware saturation ceiling and how increased analog gain reduces effective headroom.
